@@ -1,4 +1,6 @@
-public class ChildrenBook extends Book{
+package com.company;
+
+public class ChildrenBook extends Book {
     int age;
     ChildrenBook() {
         age=0;

@@ -1,18 +1,23 @@
-public class Book extends Bookstore{
+package com.company;
+
+import com.company.Author;
+import com.company.BookType;
+import com.company.Bookstore;
+
+public class Book {
     private String title;
-    public Author  author;
+    public Author author;
     private BookType type;
     private int available;
     private double price;
     Book() {
         title= " ";
         author = new Author();
-        getAuthor();
-        getType();
+
         available=0;
         price=0;
     }
-    Book(double price, String title, Author author, BookType type, int available){
+    Book(BookType type, String title, Author author, double price, int available){
         this.price=price;
         this.title=title;
         this.author=author;
@@ -61,5 +66,14 @@ public class Book extends Bookstore{
     }
 
     public void setAuthor(String next, int nextInt) {
+    }
+
+    @Override
+    public String toString() {
+        return " {" +
+                " , Заглавие " + title + '\'' +
+                ", Авторът е " + author +
+                ", цена " + price +
+                '}';
     }
 }

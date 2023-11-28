@@ -1,24 +1,20 @@
-import java.util.Scanner;
+package com.company;
+
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
-        Bookstore bkst=new Bookstore();
+        List <Book> books=new ArrayList<>();
+        Bookstore bkst=new Bookstore((ArrayList<Book>) books);
         int numBooks=scanner.nextInt();
         System.out.println("Списък с книги: ");
         for (int i=0; i<numBooks; i++){
-            Book book = null;
-            System.out.println("Въведете заглавие: ");
-            String title = scanner.next();
-            System.out.println("Въведете име на автора: ");
-            String authorName = scanner.next();
-            System.out.println("Въведете възраст на автора: ");
-            String authorAge = scanner.next();
-            System.out.println("Въведете тип книга <Children/Book/Comic> : ");
+            Book book ;
+            System.out.println("Въведете тип книга <Children/BOOK/Comic> : ");
             BookType type = BookType.valueOf(scanner.next().toUpperCase());
-
             switch (type) {
-                case CHILDREN_BOOK -> {
+                case CHILDREN_BOOK ->  {
 
                     book = new ChildrenBook();
                     break;
@@ -28,36 +24,41 @@ public class Main {
                     book = new ComicBook();
                     break;
                 }
-                case BOOK -> {
+                 default -> {
                     book = new Book();
+                    break;
                 }
 
-            }
-            book.setType(type);
+            }  book.setType(type);
+            System.out.println("Въведете заглавие: ");
             book.setTitle(scanner.next());
-            book.setAuthor(scanner.next(), scanner.nextInt());
-            book.setPrice(scanner.nextDouble());
-            book.setAvailable(scanner.nextInt());
+            System.out.println("Въведете име, възраст на автора, цена и наличност: ");
+          Author a=new Author();
+          a.setName(scanner.next());
+          a.setAge(scanner.nextInt());
+          book.setAuthor(a);
+          book.setPrice(scanner.nextDouble());
+          book.setAvailable(scanner.nextInt());
             switch (type) {
                 case COMIC_BOOK -> {
                     System.out.println("Името на героя е: ");
                     ((ComicBook) book).setCharacterName(scanner.next());
+                    break;
                 }
                 case CHILDREN_BOOK -> {
                     System.out.println("Книгата е подходяща за деца на възраст от: ");
                     ((ChildrenBook) book).setAge(scanner.nextInt());
+                    break;
                 }
-                default -> {
-                }
+
             }
-            bkst.books.add(book);
+            books.add(book);
         }
-    
+    scanner.close();
      System.out.println("Продадени книги: ");
-    for(int i=0; i<bkst.books.size(); i++) {
-        if (i%2 == 0) {
-            bkst.sell(bkst.books.get(i));
-        }
+    for(int i=0; i<books.size(); i+=2) {
+            bkst.sell(books.get(i));
+
     }
     }
 }

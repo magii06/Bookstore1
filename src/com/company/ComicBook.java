@@ -1,3 +1,5 @@
+package com.company;
+
 public class ComicBook extends Book {
     String characterName;
     public String getCharacterName() {
@@ -14,11 +16,12 @@ public class ComicBook extends Book {
     }
     @Override
     public double getPrice() {
-        double price=super.getPrice();
-        price=price*0.6;
-        return price;
+        return getPrice(0.6);
     }
     public double getPrice(double sale) {
-        return sale;
+        double price=super.getPrice();
+        price=price*sale;
+        System.out.println("Книгата е на цена: " + getPrice());
+        return price;
     }
 }
